@@ -11,4 +11,5 @@ urlpatterns = [
     path('<int:pk>/update/', views.product_update, name='product_update'),  # Update an existing product
     path('<int:pk>/delete/', views.product_delete, name='product_delete'),  # Delete a product
     path('client/', views.client_list, name='client_list'),
+    path('clients/<int:pk>/', views.client_detail, name='client_detail'),
 ]

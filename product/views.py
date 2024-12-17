@@ -135,7 +135,7 @@ def product_delete(request, pk):
 
 def client_list(request):
     query = request.GET.get('q', '')
-    clients = Client.objects.annotate(product_count=Count('product')).filter(
+    clients = Client.objects.annotate(product_count=Count('products')).filter(
         Q(name__icontains=query) | Q(phone__icontains=query)
     ).order_by('name')
 
@@ -145,7 +145,18 @@ def client_list(request):
 
     return render(request, 'pages/client_table.html', {'page_obj': page_obj, 'query': query})
 
+
 def client_detail(request, pk):
     client = get_object_or_404(Client, pk=pk)
-    page_obj = client.Product.objects.all()
+    products = client.products.all()
+
+    paginator = Paginator(products, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'pages/client_detail.html', {
+        'client': client,
+        'page_obj': page_obj,
+        'title': f"Client Details: {client.name}"
+    })
 

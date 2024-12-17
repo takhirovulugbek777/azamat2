@@ -34,3 +34,8 @@ class ProductForm(forms.ModelForm):
             'serial_number': 'A unique identifier for the product.',
 
         }
+
+
+class ClientForm(forms.Form):
+    class Meta:
+        fields = '__all__'

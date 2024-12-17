@@ -3,9 +3,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 
 from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.core.paginator import Paginator
 from django.db.models import Q, Count
+from django.views.generic import CreateView, UpdateView
+
 from .models import Product, Client
 from .forms import ProductForm
 
@@ -73,7 +75,8 @@ def product_list(request):
     products = Product.objects.filter(
         Q(name__icontains=query) |
         Q(serial_number__icontains=query) |
-        Q(client__phone__icontains=query)  # Add this line to search by client's phone number
+        Q(client__phone__icontains=query) |
+        Q(client__name__icontains=query)  # Add this line to search by client's phone number
     ).select_related('client')  # Use select_related to optimize database queries
 
     paginator = Paginator(products, 10)  # Show 10 products per page
@@ -143,7 +146,7 @@ def client_list(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    return render(request, 'pages/client_table.html', {'page_obj': page_obj, 'query': query})
+    return render(request, 'pages/client_table.html', {'page_obj': page_obj, 'query': ''})
 
 
 def client_detail(request, pk):
@@ -160,3 +163,14 @@ def client_detail(request, pk):
         'title': f"Client Details: {client.name}"
     })
 
+
+def product_detail(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    return render(request, 'pages/product_detail.html', {'product': product})
+
+
+class ClientUpdateView(UpdateView):
+    model = Client
+    template_name = 'pages/client_update.html'
+    fields = ['name', 'phone']
+    success_url = reverse_lazy('client_list')

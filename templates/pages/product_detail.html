@@ -1,0 +1,62 @@
+{% extends 'pages/base.html' %}
+
+{% block page_title %}Product Details{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-4">
+                <div class="card-header pb-0 d-flex justify-content-between align-items-center">
+                    <h6 class="mb-0">Product Details</h6>
+                    <a href="{% url 'product_update' product.id %}" class="btn btn-primary btn-sm">
+                        <i class="fas fa-edit me-2"></i>Edit Product
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h2 class="text-xl font-semibold mb-4">{{ product.name }}</h2>
+                            <p><strong>Serial Number:</strong> {{ product.serial_number }}</p>
+                            <p><strong>Warranty Period:</strong> {{ product.warranty_period }} months</p>
+                            <p><strong>Sold Date:</strong> {{ product.sold_date }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h3 class="text-lg font-semibold mb-3">Client Information</h3>
+                            <p><strong>Name:</strong> {{ product.client.name }}</p>
+                            <p><strong>Phone:</strong> {{ product.client.phone }}</p>
+                            <a href="{% url 'client_detail' product.client.id %}"
+                               class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-user me-2"></i>View Client Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if product.notes %}
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header pb-0">
+                    <h6 class="mb-0">Product Notes</h6>
+                </div>
+                <div class="card-body">
+                    <p>{{ product.notes|linebreaks }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <a href="{% url 'product_list' %}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Back to Product List
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

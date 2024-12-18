@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework import status
 from rest_framework.generics import ListCreateAPIView
 from rest_framework.views import APIView
@@ -9,10 +8,15 @@ from telegram_bot.models import TelegramUser
 from telegram_bot.serializers import TelegramUserSerializer, ProductSerializer
 
 
-# Create your views here.
 class TelegramBotUserView(ListCreateAPIView):
     queryset = TelegramUser.objects.all()
     serializer_class = TelegramUserSerializer
+
+    def create(self, request, *args, **kwargs):
+        user_id = request.data.get('user_id')
+        if TelegramUser.objects.filter(user_id=user_id).exists():
+            return Response({"message": "Foydalanuvchi mavjud"}, status=status.HTTP_200_OK)
+        return super().create(request, *args, **kwargs)
 
 
 class ProductDetailView(APIView):

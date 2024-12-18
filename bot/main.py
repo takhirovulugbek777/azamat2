@@ -20,11 +20,12 @@ dp = Dispatcher()
 # Start komandasi uchun handler
 @dp.message(CommandStart())
 async def command_start_handler(message: Message) -> None:
+    result = create_user(message.from_user.id, message.from_user.first_name, message.from_user.username)
     await message.answer(
         f"Assalomu alaykum, {html.bold(message.from_user.full_name)}!\n"
+        f"{result}\n"
         f"Telefon yoki MacBook seriya raqamini kiriting:"
     )
-    create_user(message.from_user.id, message.from_user.first_name, message.from_user.username)
 
 
 # Ma'lumotlarni olish uchun handler

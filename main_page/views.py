@@ -1,6 +1,23 @@
+from django.contrib import messages
 from django.shortcuts import render
 
+from product.models import Product
 
-# Create your views here.
+
+def coverage(request):
+    if request.method == 'POST':
+        serial_number = request.POST.get('serial_number', '').strip()
+        product = Product.objects.filter(serial_number=serial_number).first()  # filter va first bilan foydalanamiz
+        if product:
+            return render(request, 'main/coverage.html', {'product': product})
+        else:
+            messages.success(request, 'Mahsulot topilmadi')  # Xabar turini `error` qildik
+    return render(request, 'main/product_search_form.html')
+
+
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'main/index.html')
+
+
+def search(request):
+    return render(request, 'main/product_search_form.html')

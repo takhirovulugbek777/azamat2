@@ -6,13 +6,11 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.core.paginator import Paginator
 from django.db.models import Q, Count
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import UpdateView
 
 from .models import Product, Client
 from .forms import ProductForm
 
-
-# Create your views here
 
 def home(request):
     return render(request, 'pages/home.html')
@@ -38,9 +36,6 @@ def logout_user(request):
     logout(request)
     messages.success(request, 'Success Logout!')
     return redirect('home')
-
-
-#######################################################################################################################
 
 
 def product_create(request):

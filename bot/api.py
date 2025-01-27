@@ -2,7 +2,7 @@ import json
 
 import requests
 
-BASE_URL = 'http://127.0.0.1:8000/bot-api/'
+BASE_URL = 'https://checkdevice.uz/bot-api/'
 
 
 def create_user(user_id, name, username):

@@ -12,7 +12,7 @@ from buttons import button
 from api import create_user
 from api import BASE_URL
 
-TOKEN = "7510935266:AAGRHO6-Ox7rN35zt8o8cp2V9z4Mt7mD3GY"
+TOKEN = "7192339698:AAFLPA9gcKIpAqM2JYzf0Y3rMtlDzrwPdnU"
 
 dp = Dispatcher()
 

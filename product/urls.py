@@ -15,4 +15,7 @@ urlpatterns = [
     path('clients/<int:pk>/', views.client_detail, name='client_detail'),
     path('product_detail/<int:pk>/', views.product_detail, name='product_detail'),
     path('product/<int:pk>/update/', views.ClientUpdateView.as_view(), name='client_update'),
+    path('export-products/', views.export_products_to_excel, name='export_products'),
+    path('expor-page/', views.exel_page, name='exel_page'),
+    path('download-excel/', views.download_excel, name='download_excel'),
 ]

@@ -1,0 +1,20 @@
+{% extends 'pages/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Your file is being downloaded...</h2>
+    <p>You will be redirected to the home page shortly.</p>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Faylni yuklab olishni boshlash
+        window.location.href = '{{ file_url }}';
+
+        // 3 soniyadan so'ng home sahifasiga yo'naltirish
+        setTimeout(function () {
+            window.location.href = '{{ redirect_url }}';
+        }, 3000);
+    });
+</script>
+{% endblock %}

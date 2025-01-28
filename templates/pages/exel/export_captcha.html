@@ -1,0 +1,36 @@
+{% extends 'pages/base.html' %}
+
+{% block page_title %}Export Products{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="text-center">Export Products</h2>
+                </div>
+                <div class="card-body">
+                    <p class="text-center">To export products, please solve the CAPTCHA below:</p>
+                    <form method="post" class="mt-4">
+                        {% csrf_token %}
+                        <div class="form-group text-center">
+                            <label for="captcha" class="form-label">What is {{ num1 }} + {{ num2 }}?</label>
+                            <input type="number" id="captcha" name="captcha_result" class="form-control text-center"
+                                   required>
+                        </div>
+                        {% if error %}
+                        <div class="alert alert-danger mt-3" role="alert">
+                            {{ error }}
+                        </div>
+                        {% endif %}
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
